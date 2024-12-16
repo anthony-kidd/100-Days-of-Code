@@ -52,8 +52,8 @@ def main():
 
     # Using a for loop to create the necessary folders.        
     for i in range (number_of_folders):
-        day = i + 1 # Since Python increments a for loop startign at 0, we must add 1 to get the correct number,
+        day = i + 1 # Since Python increments a for loop starting at 0, we must add 1 to get the correct number.
         createFolder(f'./{folder_name} {day}/')
-        # Creates a folder in the current directory called day + the number of the day
+        # This function creates a folder in the current directory called Day + the number of the day.
 
 main()
