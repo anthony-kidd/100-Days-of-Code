@@ -36,7 +36,7 @@ def validateNumberofFolders(number_of_folders):
             number_of_folders = int(number_of_folders)
             break
         else:
-            print("Error: number of folders is not recognized as an an integer. please try again.")
+            print("Error: number of folders is not recognized as an integer. please try again.")
             number_of_folders = (input("Please enter the number of folders to create: "))
     return int(number_of_folders)
 
