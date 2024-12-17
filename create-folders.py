@@ -6,6 +6,7 @@ Purpose: This program will create a group of folders for my 100 days of
 GitHub Repo for createFolder function: https://gist.github.com/keithweaver/562d3caa8650eefe7f84fa074e9ca949
 Revision History:
 12-16-2024 - File created & base program completed.
+12-17-2024 - Corrected typos in validateFolderName() error output message
 """
 # *Necessary Imports
 import os
