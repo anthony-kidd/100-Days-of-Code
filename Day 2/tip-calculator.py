@@ -3,14 +3,41 @@ Name: tip-calculator.py
 Author: Anthony Kidd
 Purpose: This program will calculate the tip ammount for a bill
 12-17-2024 - File created & base prgram began
+12-19-2024 - Sipmlified functions, removed split_bill boolean, defined functions for printing error messages, 
+             defined custom tip function to avoid deep encapsulation, renamed and completed the calculateBill function
 """
+def inputError():
+    """ Function to print errors for invalid inputs"""
+    print("Error: Invalid input!")
 
-#* Function to collect the bill ammount, tip percentage, and if the person wants to split the bill.
+def ChoiceError():
+    """ Function to print errors for invalid choices"""
+    print("Error: Invalid choice!")
+
 def collectBillInfo(): 
     """ This is a function to collect and validate the bill total before tip."""
-    bill_ammount = input("Please enter the bill ammout.\n$")
-    bill_ammount =float(bill_ammount)
-    return bill_ammount
+    while True:
+        bill_ammount = input("Please enter the bill ammout.\n$")
+        try: bill_ammount =float(bill_ammount)
+        except: TypeError
+        if isinstance(bill_ammount, float):
+            return bill_ammount
+            break
+        else:
+            inputError()
+
+def customTip():
+    """ Function to define a custom tip ammount """
+    while True:
+        tip_percent = input("What percentage tip would you like to leave?\n")
+        try: tip_percent = float(tip_percent)
+        except: TypeError
+        if isinstance(tip_percent, float):
+            break
+        else:
+            inputError()
+        break
+    return tip_percent
 
 def collectTipInfo():
     """ This function allows the user to select the percentage they would like to leave as a tip."""
@@ -27,58 +54,49 @@ def collectTipInfo():
             tip_percent = 20.0
             break
         elif tip_ammount_selection == "4":
-            # Validation loop for custom tip percentage
-            while True:
-                tip_percent = input("What percentage tip would you like to leave?\n")
-                try: tip_percent = float(tip_percent)
-                except: TypeError
-                if isinstance(tip_percent, float):
-                    break
-
-                else:
-                    print("Error: Invalid input!")
+            tip_percent = customTip()
             break
         else:
-            print("Error: Invalid choice!")
+            ChoiceError()
     return tip_percent
 
-def collectSplittingInfo():
+def splitBill():
     """ This function allows the user to choose if the bill will be split and how many people it will be split with."""
-    # Validation loop for split bill option
     while True:
-        split_bill = input("Do you want to split the bill with others?\n\t1. Yes\n\t2. No\n")
-        if split_bill == "1":
-            split_bill = True
-            break
-        elif split_bill == "2":
-            split_bill = False
+        number_of_people = input("Please enter the number of people to split the bill between.\n if you do not wish to split, please enter '1'\n")
+        try: number_of_people = int(number_of_people)
+        except: TypeError
+        if isinstance(number_of_people, int):
             break
         else:
-            print("Error: Invalid choice!")
+            inputError()
+    return number_of_people
 
-    # Validation loop for number of people splitting bill
-    while True:
-        if split_bill == True:
-            number_of_people = input("Please enter the number of people to split the bill between.\n")
-            try: number_of_people = int(number_of_people)
-            except: TypeError
-            if isinstance(number_of_people, int):
-                break
-            else:
-                print("Error: Invalid input!")
-        else:
-            number_of_people = 1
-            break
-    return split_bill, number_of_people
-
-def calculateTip(bill_ammount, tip_percent):
+def calculateBill(bill_ammount, tip_percent, number_of_people):
+    """ This function will calculate the total of the bill including tip."""
     tip = bill_ammount * tip_percent/100
-    print(tip)
+    total = bill_ammount + tip
+    if number_of_people > 1:
+        total = bill_ammount + tip
+        tip_per_person = tip / number_of_people
+        bill_per_person = bill_ammount /number_of_people
+        total_per_person = total / number_of_people
+        print(f"Bill total after tip: ${total}")
+        print(f"Bill per person ${bill_per_person}")
+        print(f"Tip per person: ${tip_per_person}")
+        print(f"Total ammount owed per person (bill and tip) ${total_per_person}")
+    else:
+        print(f"Bill total before tip: ${bill_ammount}")
+        print(f"Tip: ${tip}")
+        print(f"Bill total after tip: ${total}")
+    
+    
 
 def main():
+    """ Main function to run program"""
     bill_ammount = collectBillInfo()
     tip_percent = collectTipInfo()
-    split_bill, number_of_people = collectSplittingInfo()
-    calculateTip(bill_ammount, tip_percent)
+    number_of_people = splitBill()
+    calculateBill(bill_ammount, tip_percent, number_of_people)
 
-main()
+main() # Calling main function
