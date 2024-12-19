@@ -63,7 +63,7 @@ def collectTipInfo():
 def splitBill():
     """ This function allows the user to choose if the bill will be split and how many people it will be split with."""
     while True:
-        number_of_people = input("Please enter the number of people to split the bill between.\n if you do not wish to split, please enter '1'\n")
+        number_of_people = input("Please enter the number of people to split the bill between.\nif you do not wish to split, please enter '1'\n")
         try: number_of_people = int(number_of_people)
         except: TypeError
         if isinstance(number_of_people, int):
